@@ -1,0 +1,54 @@
+#!/bin/python3
+import sys
+from subprocess import Popen, PIPE
+from codecs import BOM_UTF8
+from operator import eq
+
+
+#=================================================================================
+def encoding_verify(triplet):
+    REQ_EXTS = ['.c', '.h', '.cpp', '.hpp', '.test']
+    result = []
+    oldcommit, newcommit, ref = triplet
+    command = 'git diff --name-only {} {}'.format(oldcommit, newcommit)
+    proc = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)
+    differed_files = proc.stdout.readlines()  # требуются для нахождения только различных блобов
+    differed_files = [line.decode().rstrip() for line in differed_files]
+
+    command = 'git ls-tree -r --full-tree {}'.format(newcommit)
+    proc = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)  # без shell=True команду git не найдёт.
+    tree_cont = proc.stdout.readlines()
+
+    for line in [line.decode() for line in tree_cont]:
+        mode, type_, object_, file_name = line.split(maxsplit=3)  # maxsplit, т.к. имя может содержать пробелы.
+        file_name = file_name.rstrip()
+        if (any([file_name.endswith(ext) for ext in REQ_EXTS]) and
+                any([eq(file_name, dfn) for dfn in differed_files])):
+            command = 'git cat-file blob {}'.format(object_)
+            proc = Popen(command, stdout=PIPE, stderr=PIPE, shell=True, bufsize=3)
+            blob_cont = proc.communicate()[0]
+            if not blob_cont.startswith(BOM_UTF8):
+                result.append(file_name)
+
+    return result
+
+#=================================================================================
+input_info = sys.stdin.read().strip().split()  # берём на вводе параметры от GIT'a.
+branch_count = len(input_info)//3  # на одну ветку по три элемента - oldcommit, newcommit, ref
+if branch_count > 1:  # если проталкивается несколько веток одновременно.
+    triplets, ind = [], 0
+    for step in range(branch_count):
+        triplets.append([el for el in input_info[ind:ind+3]])
+        ind += 3
+else:
+    triplets = [input_info]
+
+#=================================================================================
+files_without_bom = []
+for triplet in triplets:
+    files = encoding_verify(triplet)
+    files_without_bom.extend(files)
+
+if files_without_bom:
+    exit('There are files without '
+         'utf-8 with BOM encoding: {}'.format(files_without_bom))
