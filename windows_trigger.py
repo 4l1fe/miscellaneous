@@ -1,10 +1,7 @@
-import signal
 import time
 import os
 import win32gui
 import win32con
-import win32process
-import traceback
 from subprocess import Popen
 
 
@@ -22,7 +19,7 @@ def write_parent_hwnd(hwnd, lParam):
 if __name__ == '__main__':
     # Классы\путь к запускаемому файлу окон, по ним ищем hwnd окна\запускаем окно.
     REQUIRED_CLASSES_PROGRAMS = {'TkTopLevel': 'py -3 D:\WORK\sbis3\script\\test\\not_decided.pyw',
-                                 'Chrome': '"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --new-window chrome-extension://bpdhaofmkackpofgcippnjdkbgidkdnk/monitor.html',
+                                 'Chrome': '"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --new-window chrome-extension://khojaffakpmbndhfnnodlpggcmaodfoo/monitor.html',
                                  'Mozilla': '"C:\Program Files (x86)\Mozilla Firefox\\firefox.exe" http://dev-ci//plugin/jenkinswalldisplay/walldisplay.html?viewName=+++++++++++Platforma&jenkinsUrl=http%3A%2F%2Fdev-ci%2F'}
     TIMEOUT = 10
     HWND_CLASS_LIST = []  # Список hwnd(A handle to a window), по которым хотим переключаться.
