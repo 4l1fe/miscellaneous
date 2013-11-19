@@ -52,7 +52,6 @@ def main():
             label.config(text=template, bg='#78207E', fg='#4FEDEE', font=('Segoi UI', FONT_SIZE, 'bold'))  # ФИОЛЕТОВЫЙ
 
         # Для циклической отправки запроса client.call() по истичении TIMEOUT
-        print('done')
         root_widg.after(TIMEOUT, output)
 
     # Функция закрывает главное окно по событию.
