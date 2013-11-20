@@ -30,7 +30,7 @@ if __name__ == '__main__':
     REQUIRED_PROGRAMS = ['py -3 D:\SCRIPTS\WORK\\not_decided.pyw',
                          '"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --new-window chrome-extension://khojaffakpmbndhfnnodlpggcmaodfoo/monitor.html',
                          '"C:\Program Files (x86)\Mozilla Firefox\\firefox.exe" http://dev-ci//plugin/jenkinswalldisplay/walldisplay.html?viewName=+++++++++++Platforma&jenkinsUrl=http%3A%2F%2Fdev-ci%2F',
-                         'py -3 D:\SCRIPTS\WORK\\unrealized_tasks.py -ptm 240',
+                         'py -3 D:\SCRIPTS\WORK\\unrealized_tasks.py -ptm 240 -cf "D:\list.csv"',
                          'py -3 D:\SCRIPTS\WORK\generate_csv_file.py -s "C:\\Users\\dv.krasnov\\СБиС2\\sbis.exe" -p "D:\\\download\\\Список из сбис\\\Кол_воЗаданий.prg" -stm 240'
                          ]
 
