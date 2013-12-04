@@ -5,6 +5,7 @@ import os
 import json
 from time import sleep
 from atf.xmlrunner import *
+#from test_api._xmlrunner import *
 
 sys.path.append('')
 from sbis_root import *
@@ -17,7 +18,7 @@ class AsyncMethodsTestCase(unittest.TestCase):
         self.callbacks_log = result.callbacks_log
         self.additional_parameters = Record()
         self.serv_addr = ConfigGet('АдресСервиса')
-        self.pause = 2
+        self.pause = 1
 
     def test_01_Локальный_str(self):
         res = self.obj.Invoke("АсинхронныйВызовМетода", 'ProxyObj', 'Локальный_str', '', self.callbacks_log, self.additional_parameters)

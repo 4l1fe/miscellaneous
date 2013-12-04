@@ -1,38 +1,49 @@
-import argparse
-import unittest
+import argparse, unittest
+from datetime import datetime
 from selenium import webdriver
 from atf.xmlrunner import *
 
 
 class SetCookieTestCase(unittest.TestCase):
-    """Цифры в названии теста служит для запуска тестов в заданном порядке"""
 
     driver = webdriver.Firefox()
 
-    def test_01_set_cookie(self):
+    def test_set_get_cookie(self):
+        self.cookie_name = 'tested_cookie_name'
+        self.cookie_value = 'tested_cookie_value'
+        self.driver.delete_cookie(self.cookie_name)
         self.driver.get(result.site)
         cookies = self.driver.get_cookies()
-        self.assertNotIn(result.cookie_name, cookies)
-        query = '''blobj = $ws.proto.BLObject("CookieObj");
-                   blobj.call('SetCookie', {'cookie_name': '%s', 'cookie_value': '%s'}, $ws.proto.BLObject.RETURN_TYPE_ASIS)'''
-        query = query % (result.cookie_name, result.cookie_value)
-        self.driver.execute_script(query)
+        self.assertNotIn(self.cookie_name, [d['name'] for d in cookies])
+        
+        start = datetime.now()
+        is_errors = True
+        while ( datetime.now() - start ).seconds < 30:
+            try:
+                elem = self.driver.find_element_by_css_selector('div[sbisname="SetCookie"] .ws-button-text-element')
+                if elem:
+                    elem.click()
+                    cookies = self.driver.get_cookies()  # cookies - список из словарей с метаданными
+                    self.assertIn(self.cookie_name, [d['name'] for d in cookies])
+                    self.assertIn(self.cookie_value, [d['value'] for d in cookies])
+                    self.driver.delete_cookie(self.cookie_name)
+                    is_errors = False
+                    break
+            except:
+                time.sleep(0.3)
+        if is_errors:
+            self.fail("Не найдена кнопка запуска теста")
+            
 
-    def test_02_get_cookie(self):
-        cookies = self.driver.get_cookies()  # cookies - список из словарей с метаданными
-        self.driver.delete_cookie(result.cookie_name)
-        self.driver.close()
-        self.assertIn(result.cookie_name, [d['name'] for d in cookies])
-        self.assertIn(result.cookie_value, [d['value'] for d in cookies])
+    def tearDown(self):
+        self.driver.quit()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-xo', '--xml_output', dest='xml_output')
     parser.add_argument('-s', '--site', dest='site')
-    parser.add_argument('-cn', '--cookie_name', dest='cookie_name')
-    parser.add_argument('-cv', '--cookie_value', dest='cookie_value')
     result = parser.parse_args()
-    #result = parser.parse_args(['-s', 'http://localhost:1001', '-cn', 'some_name', '-cv', 'some_value'])
+    #result = parser.parse_args(['-s', 'http://localhost:3083'])
 
     suit = unittest.TestLoader().loadTestsFromTestCase(SetCookieTestCase)
     if result.xml_output:
