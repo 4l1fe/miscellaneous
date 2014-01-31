@@ -38,7 +38,7 @@ def parse_sbis_root():  # Танина необъяснимая логика.
     methods_list.sort()
 
 
-def create_rst_files(sphinx_dir):
+def generate_required_files(sphinx_dir):
     all_classes_str = ""
     req_classes = ['Record', 'RecordSet', 'IField', 'BLObject', 'IStatement', 'IDatabase', 'SqlQuery']
     sc_name = 'sections/classes'
@@ -153,75 +153,76 @@ def sphinx_rebuild(sphinx_dir, prepared_dir):
     #shutil.copy(os.path.abspath('..\..\..\doc-source-genc\index.php'), os.path.abspath('..\..\..\docs'))
 
 
-#def copy_to_dev_wi(sphinx_dir):
-#    def recurseDel(ftpClient, cdir="/dev-wi.sbis.ru/docs/bl/py", rootdir="/dev-wi.sbis.ru/docs/bl/py"):
-#        ftpClient.cwd(cdir)
-#        lister = list()
-#        ftpClient.retrlines("NLST", lambda l: lister.append(l))
-#        for name in lister:
-#            testToDel = cdir + '/' + name
-#            try:
-#                ftpClient.delete(testToDel)
-#            except:
-#                try:
-#                    ftpClient.rmd(testToDel)
-#                except:
-#                    recurseDel(ftpClient, testToDel)
-#        try:
-#            ftpClient.rmd(testToDel)
-#        except:
-#            try:
-#                if testToDel[:testToDel.rfind('/')] != rootdir:
-#                    ftpClient.rmd(testToDel[:testToDel.rfind('/')])
-#                    print('in folder:' + testToDel)#.removedirs(testToDel)
-#            except:
-#                pass
-#        return
-#
-#    def recurseUpload(ftpClient, cdir="/dev-wi.sbis.ru/docs/bl/py", docs=os.path.normpath(sphinx_dir + '\docs'),
-#                      rootdir="/dev-wi.sbis.ru/docs/bl/py"):
-#        try:
-#            ftpClient.cwd(cdir)
-#        except:
-#            pass
-#        for name in os.listdir(docs):
-#            if name.startswith('.'):
-#                _name = name
-#                name = name[1:]
-#                try:
-#                    if not os.path.isfile(os.path.join(docs, name)):
-#                        try:
-#                            shutil.rmtree(os.path.join(docs, name))
-#                        except:
-#                            pass
-#                    else:
-#                        try:
-#                            os.remove(os.path.join(docs, name))
-#                        except:
-#                            pass
-#                    os.renames(os.path.join(docs, _name), os.path.join(docs, name))
-#                except:
-#                    pass
-#            if os.path.isfile(os.path.join(docs, name)):
-#                f = open(os.path.join(docs, name), "rb")
-#                if len(name.split('.')) == 1:
-#                    name += '.txt'
-#                send = ftpClient.storbinary("STOR " + name, f)
-#            else:
-#                try:
-#                    ftpClient.mkd(name)
-#                except:
-#                    print('not create ' + name)
-#                recurseUpload(ftpClient, cdir + '/' + name, os.path.join(docs, name))
-#                ftpClient.cwd('..')
-#        pass
-#
-#    ftpClient = FTP('dev-wsr-static')
-#    ftpClient.login('shuvalovatn', 'TkFFtb7N')
-#    ftpClient.cwd("/dev-wi.sbis.ru/docs/bl/py")
-#    recurseDel(ftpClient)
-#    recurseUpload(ftpClient)
-#    ftpClient.close()
+def copy_to_dev_wi(sphinx_dir):
+
+    def recurseDel(ftpClient, cdir="/dev-wi.sbis.ru/docs/bl/py", rootdir="/dev-wi.sbis.ru/docs/bl/py"):
+        ftpClient.cwd(cdir)
+        lister = list()
+        ftpClient.retrlines("NLST", lambda l: lister.append(l))
+        for name in lister:
+            testToDel = cdir + '/' + name
+            try:
+                ftpClient.delete(testToDel)
+            except:
+                try:
+                    ftpClient.rmd(testToDel)
+                except:
+                    recurseDel(ftpClient, testToDel)
+        try:
+            ftpClient.rmd(testToDel)
+        except:
+            try:
+                if testToDel[:testToDel.rfind('/')] != rootdir:
+                    ftpClient.rmd(testToDel[:testToDel.rfind('/')])
+                    print('in folder:' + testToDel)#.removedirs(testToDel)
+            except:
+                pass
+        return
+
+    def recurseUpload(ftpClient, cdir="/dev-wi.sbis.ru/docs/bl/py", docs=os.path.normpath(sphinx_dir + '\docs'),
+                      rootdir="/dev-wi.sbis.ru/docs/bl/py"):
+        try:
+            ftpClient.cwd(cdir)
+        except:
+            pass
+        for name in os.listdir(docs):
+            if name.startswith('.'):
+                _name = name
+                name = name[1:]
+                try:
+                    if not os.path.isfile(os.path.join(docs, name)):
+                        try:
+                            shutil.rmtree(os.path.join(docs, name))
+                        except:
+                            pass
+                    else:
+                        try:
+                            os.remove(os.path.join(docs, name))
+                        except:
+                            pass
+                    os.renames(os.path.join(docs, _name), os.path.join(docs, name))
+                except:
+                    pass
+            if os.path.isfile(os.path.join(docs, name)):
+                f = open(os.path.join(docs, name), "rb")
+                if len(name.split('.')) == 1:
+                    name += '.txt'
+                send = ftpClient.storbinary("STOR " + name, f)
+            else:
+                try:
+                    ftpClient.mkd(name)
+                except:
+                    print('not create ' + name)
+                recurseUpload(ftpClient, cdir + '/' + name, os.path.join(docs, name))
+                ftpClient.cwd('..')
+        pass
+
+    ftpClient = FTP('dev-wsr-static')
+    ftpClient.login('shuvalovatn', 'TkFFtb7N')
+    ftpClient.cwd("/dev-wi.sbis.ru/docs/bl/py")
+    recurseDel(ftpClient)
+    recurseUpload(ftpClient)
+    ftpClient.close()
 
 
 def main():
@@ -233,7 +234,7 @@ def main():
     parse_sbis_root()
 
     #Перегенерируем rst файлы с обновленными классами
-    create_rst_files(result.sphinx_dir)
+    generate_required_files(result.sphinx_dir)
 
     #Делаем ребилд документации с обновленными rst файлами.
     prepared_dir = join(result.sphinx_dir, 'prepared_dir')
