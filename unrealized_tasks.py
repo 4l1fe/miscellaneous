@@ -14,18 +14,22 @@ def show_parsed_csv(parse_csv_timeout):
     label.pack(expand=True, fill='both')
 
     def parse_csv():
-        file = open(result.csv_file)
-        reader = csv.reader(file)
-        person_tasks = [row for row in reader]
-        file.close()
-        person_tasks.sort(key=lambda elem: int(elem[1]), reverse=True)  # Сортировка по убыванию кол-ва заданий
-        template = 'НЕЗАКРЫТЫЕ ЗАДАНИЯ\n\n'
-        max_len = max([len(elem[0]) for elem in person_tasks[:5]])
-        for n, (person, tasks) in enumerate(person_tasks[:5]):
-            template += '{}. {:<{max_len}} - {}\n'.format(n+1, person, tasks, max_len=max_len)
+        try:
+            file = open(result.csv_file)
+            reader = csv.reader(file)
+            person_tasks = [row for row in reader]
+            file.close()
+            person_tasks.sort(key=lambda elem: int(elem[1]), reverse=True)  # Сортировка по убыванию кол-ва заданий
+            template = 'НЕЗАКРЫТЫЕ ЗАДАНИЯ\n\n'
+            max_len = max([len(elem[0]) for elem in person_tasks[:5]])
+            for n, (person, tasks) in enumerate(person_tasks[:5]):
+                template += '{}. {:<{max_len}} - {}\n'.format(n+1, person, tasks, max_len=max_len)
 
-        label.config(text=template, bg='#2E00B8', fg='#F5F500', font=('Segoi UI', 36, 'bold'))
-        root_widg.after(parse_csv_timeout, parse_csv)
+            label.config(text=template, bg='#2E00B8', fg='#F5F500', font=('Segoi UI', 36, 'bold'))
+            root_widg.after(parse_csv_timeout, parse_csv)
+        except PermissionError as error:
+            print(error)
+            root_widg.after(parse_csv_timeout, parse_csv)
 
     # Функция закрывает главное окно по событию.
     def escape(event):
