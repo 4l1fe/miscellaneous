@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'app_main',
-    'app_test'
+    'app_test',
+    'app_convertation',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,11 +61,11 @@ WSGI_APPLICATION = 'test_django_db_backends.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_db_backends_tests',
         'HOST': '127.0.0.1',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': 'root',
+        'PASSWORD': 'root',
     },
     'postgres': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -77,8 +78,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_db_backends_tests',
         'HOST': '127.0.0.1',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
+        'USER': 'root',
+        'PASSWORD': 'root',
     }
 }
 
