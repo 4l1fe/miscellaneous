@@ -67,14 +67,14 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'root',
     },
-    'postgres': {
+    'POSTGRES': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_db_backends_tests',
         'HOST': '127.0.0.1',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
     },
-    'mysql': {
+    'MYSQL': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_db_backends_tests',
         'HOST': '127.0.0.1',

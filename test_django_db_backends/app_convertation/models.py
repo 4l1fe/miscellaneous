@@ -22,10 +22,6 @@ gender = (
 )
 
 
-def defult_val():
-    return Login
-
-
 class CustomUser(models.Model):
     login = models.OneToOneField(Login)
     password = models.OneToOneField(Password)
@@ -42,7 +38,7 @@ class CustomUser(models.Model):
                                                      JOIN achievement ON logins.id = achievement.login_id''')
 
     @staticmethod
-    def get_data_lacking_fields1():
+    def get_data_lacking_fields():
         return CustomUser.objects.raw('''SELECT logins.id as id, '' as email, '' as gender, achievement.name as name
                                          FROM logins JOIN passwords ON passwords.login_id = logins.id
                                                      JOIN achievement ON logins.id = achievement.login_id''')
