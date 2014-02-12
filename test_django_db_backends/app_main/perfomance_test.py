@@ -4,8 +4,8 @@ from pprint import pprint
 from datetime import datetime
 from io import StringIO
 
-import pymysql
-pymysql.install_as_MySQLdb()
+#import pymysql
+#pymysql.install_as_MySQLdb()
 sys.path.append(r'D:\SCRIPTS\WORK\test_django_db_backends')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'test_django_db_backends.settings'
 
@@ -24,6 +24,14 @@ class GeneratePerfomanceSql:
 
     def clean_db(self, db_engine_names):
         for name in db_engine_names:
+            if 'SQLITE' in name:
+                while Author.objects.using(name).count():
+                    ids = Author.objects.using(name).values_list('id', flat=True)[:500]
+                    Author.objects.using(name).filter(pk__in=ids).delete()
+                    ids = Book.objects.using(name).values_list('id', flat=True)[:500]
+                    Book.objects.using(name).filter(pk__in=ids).delete()
+                    ids = Publisher.objects.using(name).values_list('id', flat=True)[:500]
+                    Publisher.objects.using(name).filter(pk__in=ids).delete()
             Author.objects.using(name).all().delete()
             Book.objects.using(name).all().delete()
             Publisher.objects.using(name).all().delete()
@@ -304,22 +312,22 @@ class GeneratePerfomanceSql:
 
         return test_result
 
-    def test08_prefetch_related(self, db_engine_name):
-        test_result = {'db_engine_name': db_engine_name}
-        file = open(db_engine_name+'_sql', 'a')
-        db.reset_queries()
-
-        t1 = datetime.now()
-        publishers = [p for p in Publisher.objects.using(db_engine_name).prefetch_related('book').all()]
-        t2 = datetime.now()
-        publishers_prefetch_related = str((t2-t1).total_seconds())
-        test_result['Publisher'] = publishers_prefetch_related
-
-        pprint('==========publishers_prefetch_related==========', file)
-        pprint(db.connections[db_engine_name].queries, file)
-        file.close()
-
-        return test_result
+    #def test08_prefetch_related(self, db_engine_name):
+    #    test_result = {'db_engine_name': db_engine_name}
+    #    file = open(db_engine_name+'_sql', 'a')
+    #    db.reset_queries()
+    #
+    #    t1 = datetime.now()
+    #    publishers = [p for p in Publisher.objects.using(db_engine_name).prefetch_related('book').all()]
+    #    t2 = datetime.now()
+    #    publishers_prefetch_related = str((t2-t1).total_seconds())
+    #    test_result['Publisher'] = publishers_prefetch_related
+    #
+    #    pprint('==========publishers_prefetch_related==========', file)
+    #    pprint(db.connections[db_engine_name].queries, file)
+    #    file.close()
+    #
+    #    return test_result
 
     def test09_defer(self, db_engine_name):
         test_result = {'db_engine_name': db_engine_name}
@@ -548,24 +556,24 @@ class GeneratePerfomanceSql:
 
         return test_result
 
-    def test18_aggregate(self, db_engine_name):
-        test_result = {'db_engine_name': db_engine_name}
-        file = open(db_engine_name+'_sql', 'a')
-        db.reset_queries()
-
-        t1 = datetime.now()
-        Book.objects.using(db_engine_name).aggregate(Count('author'), Max('published'),
-                                                     Min('published'), Avg('cost'), Sum('chars_count'),
-                                                     Variance('cost'), StdDev('sale_cost'))
-        t2 = datetime.now()
-        book_aggregate = str((t2-t1).total_seconds())
-        test_result['Book'] = book_aggregate
-
-        pprint('==========book_aggregate==========', file)
-        pprint(db.connections[db_engine_name].queries, file)
-        file.close()
-
-        return test_result
+    #def test18_aggregate(self, db_engine_name):
+    #    test_result = {'db_engine_name': db_engine_name}
+    #    file = open(db_engine_name+'_sql', 'a')
+    #    db.reset_queries()
+    #
+    #    t1 = datetime.now()
+    #    Book.objects.using(db_engine_name).aggregate(Count('author'), Max('published'),
+    #                                                 Min('published'), Avg('cost'), Sum('chars_count'),
+    #                                                 Variance('cost'), StdDev('sale_cost'))
+    #    t2 = datetime.now()
+    #    book_aggregate = str((t2-t1).total_seconds())
+    #    test_result['Book'] = book_aggregate
+    #
+    #    pprint('==========book_aggregate==========', file)
+    #    pprint(db.connections[db_engine_name].queries, file)
+    #    file.close()
+    #
+    #    return test_result
 
     def test19_update(self, db_engine_name):
         test_result = {'db_engine_name': db_engine_name}
@@ -623,9 +631,9 @@ class GeneratePerfomanceSql:
 
 
 def main():
-    gps = GeneratePerfomanceSql(db_engine_names=['MYSQL', 'POSTGRES'])
-    gps.run(clean=False, tests=['test20_q_lookups'])
-    # gps.run()
+    gps = GeneratePerfomanceSql(db_engine_names=['SQLITE'])
+    #gps.run(clean=False, tests=['test20_q_lookups'])
+    gps.run()
 
 if __name__ == '__main__':
     main()
