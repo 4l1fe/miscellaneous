@@ -329,6 +329,40 @@ class GeneratePerfomanceSql:
     #
     #    return test_result
 
+    def common_work(self, dbe, start, end):
+        """end содержит списки из 2х элементов:
+           1й - конец выполнения метода
+           2й - имя модели, от которой выполняется метод"""
+        test_result = {'db_engine_name': dbe}
+        for s, e in zip(start, end):
+            test_result[e[1]] = str((e[0]-s).total_seconds())
+
+
+        return test_result
+
+    def mock(self, db_engine_name):
+        start, end = [], []
+
+        file = open(db_engine_name+'_sql', 'a')
+        db.reset_queries()
+
+        start.append(datetime.now())
+        books = [b for b in Book.objects.using(db_engine_name).defer('author', 'title')]
+        end.append([datetime.now(), 'book'])
+
+        pprint('==========book_defer==========', file)
+        pprint(db.connections[db_engine_name].queries, file)
+        db.reset_queries()
+
+        t1 = datetime.now()
+        publishers = [p for p in Publisher.objects.using(db_engine_name).defer('name', 'book')]
+        t2 = datetime.now()
+
+        pprint('==========publishers_defer==========', file)
+        pprint(db.connections[db_engine_name].queries, file)
+        file.close()
+        return self.common_work(db_engine_name, start, end)
+
     def test09_defer(self, db_engine_name):
         test_result = {'db_engine_name': db_engine_name}
         file = open(db_engine_name+'_sql', 'a')
