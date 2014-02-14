@@ -4,8 +4,8 @@ from pprint import pprint
 from datetime import datetime
 from io import StringIO
 
-#import pymysql
-#pymysql.install_as_MySQLdb()
+import pymysql
+pymysql.install_as_MySQLdb()
 sys.path.append(r'D:\SCRIPTS\WORK\test_django_db_backends')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'test_django_db_backends.settings'
 
@@ -312,56 +312,55 @@ class GeneratePerfomanceSql:
 
         return test_result
 
-    #def test08_prefetch_related(self, db_engine_name):
-    #    test_result = {'db_engine_name': db_engine_name}
-    #    file = open(db_engine_name+'_sql', 'a')
-    #    db.reset_queries()
-    #
-    #    t1 = datetime.now()
-    #    publishers = [p for p in Publisher.objects.using(db_engine_name).prefetch_related('book').all()]
-    #    t2 = datetime.now()
-    #    publishers_prefetch_related = str((t2-t1).total_seconds())
-    #    test_result['Publisher'] = publishers_prefetch_related
-    #
-    #    pprint('==========publishers_prefetch_related==========', file)
-    #    pprint(db.connections[db_engine_name].queries, file)
-    #    file.close()
-    #
-    #    return test_result
+    def test08_prefetch_related(self, db_engine_name):
+        if not 'SQLITE' in db_engine_name:
+            test_result = {'db_engine_name': db_engine_name}
+            file = open(db_engine_name+'_sql', 'a')
+            db.reset_queries()
 
-    def common_work(self, dbe, start, end):
+            t1 = datetime.now()
+            publishers = [p for p in Publisher.objects.using(db_engine_name).prefetch_related('book').all()]
+            t2 = datetime.now()
+            publishers_prefetch_related = str((t2-t1).total_seconds())
+            test_result['Publisher'] = publishers_prefetch_related
+
+            pprint('==========publishers_prefetch_related==========', file)
+            pprint(db.connections[db_engine_name].queries, file)
+            file.close()
+
+            return test_result
+        else: pass
+
+    def common_work(self, dbe, tn, start, end):
         """end содержит списки из 2х элементов:
-           1й - конец выполнения метода
-           2й - имя модели, от которой выполняется метод"""
+           0й - имя модели, от которой выполняется метод
+           1й - конец выполнения метода"""
         test_result = {'db_engine_name': dbe}
-        for s, e in zip(start, end):
-            test_result[e[1]] = str((e[0]-s).total_seconds())
+        file = open(dbe+'.sql', 'a')
 
+        # header = '=============={}=============='
+        for s, e in zip(start, end):
+            # file.write(header.format(e[0]+'_'+tn))
+            test_result[e[0]] = str((e[1]-s).total_seconds())
+
+        file.write(str(db.connections[dbe].queries))
+        file.close()
+        db.reset_queries()
 
         return test_result
 
-    def mock(self, db_engine_name):
+    def mock(self, db_engine_name, test_name):
         start, end = [], []
-
-        file = open(db_engine_name+'_sql', 'a')
-        db.reset_queries()
 
         start.append(datetime.now())
         books = [b for b in Book.objects.using(db_engine_name).defer('author', 'title')]
-        end.append([datetime.now(), 'book'])
+        end.append(['books', datetime.now()])
 
-        pprint('==========book_defer==========', file)
-        pprint(db.connections[db_engine_name].queries, file)
-        db.reset_queries()
-
-        t1 = datetime.now()
+        start.append(datetime.now())
         publishers = [p for p in Publisher.objects.using(db_engine_name).defer('name', 'book')]
-        t2 = datetime.now()
+        end.append(['publishers', datetime.now()])
 
-        pprint('==========publishers_defer==========', file)
-        pprint(db.connections[db_engine_name].queries, file)
-        file.close()
-        return self.common_work(db_engine_name, start, end)
+        return self.common_work(db_engine_name, test_name, start, end, )
 
     def test09_defer(self, db_engine_name):
         test_result = {'db_engine_name': db_engine_name}
@@ -590,24 +589,26 @@ class GeneratePerfomanceSql:
 
         return test_result
 
-    #def test18_aggregate(self, db_engine_name):
-    #    test_result = {'db_engine_name': db_engine_name}
-    #    file = open(db_engine_name+'_sql', 'a')
-    #    db.reset_queries()
-    #
-    #    t1 = datetime.now()
-    #    Book.objects.using(db_engine_name).aggregate(Count('author'), Max('published'),
-    #                                                 Min('published'), Avg('cost'), Sum('chars_count'),
-    #                                                 Variance('cost'), StdDev('sale_cost'))
-    #    t2 = datetime.now()
-    #    book_aggregate = str((t2-t1).total_seconds())
-    #    test_result['Book'] = book_aggregate
-    #
-    #    pprint('==========book_aggregate==========', file)
-    #    pprint(db.connections[db_engine_name].queries, file)
-    #    file.close()
-    #
-    #    return test_result
+    def test18_aggregate(self, db_engine_name):
+        if not 'SQLITE' in db_engine_name:
+            test_result = {'db_engine_name': db_engine_name}
+            file = open(db_engine_name+'_sql', 'a')
+            db.reset_queries()
+
+            t1 = datetime.now()
+            Book.objects.using(db_engine_name).aggregate(Count('author'), Max('published'),
+                                                        Min('published'), Avg('cost'), Sum('chars_count'),
+                                                        Variance('cost'), StdDev('sale_cost'))
+            t2 = datetime.now()
+            book_aggregate = str((t2-t1).total_seconds())
+            test_result['Book'] = book_aggregate
+
+            pprint('==========book_aggregate==========', file)
+            pprint(db.connections[db_engine_name].queries, file)
+            file.close()
+
+            return test_result
+        else: pass
 
     def test19_update(self, db_engine_name):
         test_result = {'db_engine_name': db_engine_name}
@@ -658,16 +659,16 @@ class GeneratePerfomanceSql:
         for test_name, test in all_tests:
             print('='*50)
             print(test_name)
-            for name in self.db_engine_names:
-                test_result = test(self, name)
+            for den in self.db_engine_names:
+                test_result = test(self, den, test_name)
                 pprint(test_result)
         return
 
 
 def main():
-    gps = GeneratePerfomanceSql(db_engine_names=['SQLITE'])
-    #gps.run(clean=False, tests=['test20_q_lookups'])
-    gps.run()
+    gps = GeneratePerfomanceSql(db_engine_names=['POSTGRES'])
+    gps.run(clean=False, tests=['mock'])
+    # gps.run()
 
 if __name__ == '__main__':
     main()
