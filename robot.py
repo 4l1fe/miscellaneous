@@ -1,4 +1,3 @@
-#encoding: utf-8
 import sys
 import os
 import rpc
@@ -11,8 +10,10 @@ import subprocess
 from threading import Thread
 from urllib import request
 from datetime import datetime, timedelta
-from os.path import join, exists, dirname, abspath
+from os.path import join, exists, dirname, abspath, getctime
+from os import listdir
 from configparser import ConfigParser, Error
+from shutil import rmtree
 from time import sleep
 
 
@@ -21,7 +22,7 @@ class Robot:
 
     def __init__(self, config_file='robot_config.ini', log_file='robot_log.txt', xml_responses_dir='xml_responses_dir'):
         if not exists(config_file):
-            with open(config_file, 'w') as c_f:
+            with open(config_file, 'w', encoding='utf-8') as c_f:
                 cp = ConfigParser()
                 cp['GENERAL'] = {}
                 cp['GENERAL']['clock_house_ip'] = '10.76.120.91'
@@ -160,6 +161,24 @@ class Robot:
         else:
             print('Метод СохранитьДанные() не отработал')
             self.logger.info('Метод СохранитьДанные() не отработал')
+
+    def del_old_xml_responses_dir(self):
+        """Чистит папку, содержащую ответы от сервера TempoReale.
+        Удаляет папки за прошедший месяц"""
+
+        for dir in listdir(self.xml_responses_dir):
+            if datetime.fromtimestamp(getctime(dir)).month < datetime.now().month:
+                try:
+                    rmtree(dir)
+                    self.logger.info('Удалена папка с ответами - {}'.format(dir))
+                except Exception:
+                    tb_info = self.get_tb_info()
+                    print(tb_info)
+                    self.logger.error(tb_info)
+
+    def del_old_logs(self):
+        pass
+
 
 
 #==============================================================#
