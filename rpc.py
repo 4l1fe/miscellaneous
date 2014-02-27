@@ -6,9 +6,10 @@ import json
 class Client:
     "Удалённый вызов методов БЛ"
 
-    def __init__(self, hostname, is_https=False):
+    def __init__(self, hostname, port=None, is_https=False):
         "Инициализация"
         self.hostname = hostname
+        self.port = port
         self.header = { 'Content-type': 'application/json; charset=UTF-8' }
         self.timepass = {}
         self.connection = HTTPSConnection if is_https else HTTPConnection
@@ -25,9 +26,10 @@ class Client:
         "Удалённый вызов метода БЛ"
         body = json.dumps({ 'jsonrpc': '2.0', 'protocol': 3, 'method': method, 'params': params })
         # запрашиваем
-        connection = self.connection(self.hostname)
+        connection = self.connection(self.hostname, self.port)
         started = datetime.now() # замер времени
         connection.request('POST', _site + '/service/sbis-rpc-service300.dll', body, self.header)
+        connection.request
         response = connection.getresponse()
         passed = (datetime.now() - started).total_seconds()
         data = response.read()
