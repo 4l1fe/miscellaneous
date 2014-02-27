@@ -1,11 +1,8 @@
 import rpc
-from time import sleep
-from os.path import dirname, join
-from pprint import pprint
-from base_robot import BaseRobot
+from robots.baserobot import BaseRobot
 
 
-class NotificationExchenger(BaseRobot):
+class RobotNotificationExchanger(BaseRobot):
 
     def call_nearest_reminders(self):
         try:
@@ -14,8 +11,7 @@ class NotificationExchenger(BaseRobot):
             remiders_dict = cl.call('Напоминания.СписокБлижайшихСобытий', ДопПоля=None, Навигация=None, Сортировка=None, Фильтр=None)
             return remiders_dict
         except Exception:
-            tb_info = self._get_tb_info()
-            self.logger.error(tb_info)
+            self.logger.error(self._get_tb_info())
             return None
 
     def call_add_notification(self, reminders_dict):
@@ -73,8 +69,7 @@ class NotificationExchenger(BaseRobot):
             result = cl.call('ОповещенияПользователей.ДобавитьУведомление', _site='/notice', ИнфСообщение=info_mess)
             return result
         except Exception:
-            tb_info = self._get_tb_info()
-            self.logger.error(tb_info)
+            self.logger.error(self._get_tb_info())
             return None
 
     def call_delivery_result(self, result, reminders_dict):
@@ -89,36 +84,28 @@ class NotificationExchenger(BaseRobot):
                 deliv_res = cl.call('Напоминания.РезультатРассылки', Список=identifiers)
                 return deliv_res
             except Exception:
-                tb_info = self._get_tb_info()
-                self.logger.error(tb_info)
+                self.logger.error(self._get_tb_info())
                 return None
 
         return None
 
 
 def main():
-    exchanger_dir = dirname(__file__)
-    exchanger_log_dir = join(exchanger_dir, 'ne_log.txt')
-    exchanger_conf_dir = join(exchanger_dir, 'ne_config.ini')
-    dflt_conf_params = (('inside_address', 'dev-inside.tensor.ru'),
-                        ('user', 'Демо'),
-                        ('password', 'Демо123'),
-                        ('interval', '1'),
-                        ('notification_service', 'dev-sms-app'))
-
-    exchanger = NotificationExchenger(log_file=exchanger_log_dir,
-                                      config_file=exchanger_conf_dir,
-                                      configuration_parameters=dflt_conf_params)
-    exchanger.logger.info('ROBOT STARTED')
+    rne = RobotNotificationExchanger(log_file='rne_log.txt',
+                                     config_file='rne_config.ini',
+                                     interval=5,
+                                     robot_filename=__file__)
     while True:
-        exchanger.reread_config()
-        remiders_dict = exchanger.call_nearest_reminders()
-        exchanger.logger.info(remiders_dict)
-        result = exchanger.call_add_notification(remiders_dict)
-        exchanger.logger.info(result)
-        deliv_res = exchanger.call_delivery_result(result, remiders_dict)
-        exchanger.logger.info(deliv_res)
-        sleep(int(exchanger.interval))
+        rne.reread_config()
+
+        remiders_dict = rne.call_nearest_reminders()
+        rne.logger.info(remiders_dict)
+        result = rne.call_add_notification(remiders_dict)
+        rne.logger.info(result)
+        deliv_res = rne.call_delivery_result(result, remiders_dict)
+        rne.logger.info(deliv_res)
+
+        rne.pause()
 
 
 if __name__ == '__main__':
