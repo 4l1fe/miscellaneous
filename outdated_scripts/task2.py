@@ -2,7 +2,8 @@ from os import walk, mkdir
 from os.path import splitext, join, exists, basename
 from xml.etree.ElementTree import ElementTree
 from traceback import print_exc
-from additional_functions import (hyp_sp_to_underscore,
+
+from outdated_scripts.additional_functions import (hyp_sp_to_underscore,
                                   write_object_params,
                                   write_sources_triggers,
                                   write_static_methods)
