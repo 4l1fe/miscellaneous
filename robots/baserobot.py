@@ -1,3 +1,4 @@
+import sys
 import logging
 import traceback
 from logging.handlers import TimedRotatingFileHandler
@@ -9,11 +10,11 @@ from time import sleep
 class BaseRobot:
 
     def __init__(self, log_file='base_robot_log.txt', config_file='base_robot_config.ini',
-                 interval=300, robot_filename=__file__, **config_params):
+                 interval=300, **config_params):
         self.interval = interval
-        robot_dir = dirname(robot_filename)
-        self.config_file = join(robot_dir, config_file)
-        self.log_file = join(robot_dir, log_file)
+        self.robot_dir = dirname(sys.modules[self.__class__.__module__].__file__)
+        self.config_file = join(self.robot_dir, config_file)
+        self.log_file = join(self.robot_dir, log_file)
         self.general_config_section = 'general'
 
         sh = logging.StreamHandler()
@@ -26,23 +27,25 @@ class BaseRobot:
         self.logger.addHandler(th)
         self.logger.setLevel(logging.INFO)
 
-        # if config_params:
-        #     with open(self.config_file, 'w') as c_f:
-        #         cp = ConfigParser()
-        #         cp.add_section(self.general_config_section)
-        #         for k, v in config_params.items():
-        #             cp.set(self.general_config_section, k, v)
-        #         cp.write(c_f)
-        #
-        #     for k, v in config_params.items():
-        #         setattr(self, k, v)
-        #     has_params = True
-        # else:
-        #     has_params = False
-        #
-        # self.logger.info('ROBOT STARTED')
-        # if not has_params:
-        #     self.logger.warning('Неопределены параметры конфигурации робота')
+        with open(self.config_file, 'w') as c_f:
+            cp = ConfigParser()
+            cp.add_section(self.general_config_section)
+            cp.set(self.general_config_section, 'interval', str(self.interval))
+            self.logger.info(type(self.interval))
+            if config_params:
+                for k, v in config_params.items():
+                    cp.set(self.general_config_section, k, v)
+                cp.write(c_f)
+
+                for k, v in config_params.items():
+                    setattr(self, k, v)
+                has_params = True
+            else:
+                has_params = False
+
+        self.logger.info('ROBOT STARTED')
+        if not has_params:
+            self.logger.warning('Неопределены параметры конфигурации робота')
 
     def reread_config(self):
         try:
@@ -51,8 +54,10 @@ class BaseRobot:
             for k, v in cp[self.general_config_section].items():
                     setattr(self, k, v)
         except Exception:
-            tb_info = self._get_tb_info()
-            self.logger.error(tb_info)
+            self.logger.error(self._get_tb_info())
+
+    def get_robot_dir(self):
+        return self.robot_dir
 
     def _get_tb_info(self):
         """Задаёт отступы слева для вывода исключений.
@@ -66,4 +71,5 @@ class BaseRobot:
         return tb_info
 
     def pause(self):
-        sleep(self.interval)
+        self.logger.info('ПАУЗА')
+        sleep(float(self.interval))  # атрибут заново устанавливается методом reread_config, поэтому конвертируем.

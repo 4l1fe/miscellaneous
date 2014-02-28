@@ -1,41 +1,33 @@
-import os
-import gzip
-import traceback
-from urllib import request
-from datetime import datetime, timedelta
-from os.path import join, exists, dirname, abspath, getctime
-from os import listdir
-from configparser import ConfigParser, Error
-from shutil import rmtree
-from time import sleep
-
 import rpc
+from urllib import request
+from zipfile import ZipFile, ZIP_DEFLATED  # ZIP_DEFLATED тут быстрее всего, но слабже сжимает
+from datetime import datetime, timedelta
+from os.path import join, exists, getctime
+from os import listdir, mkdir
+from shutil import rmtree
 from robots.baserobot import BaseRobot
 
 
 class ClockHouseRobot(BaseRobot):
 
-
     def update_current_datetime(self):
         self.current_datetime = datetime.now()
 
     def write_response_to_xml(self, xml):
-        if not exists(self.xml_responses_dir):
-            os.mkdir(self.xml_responses_dir)
+        xml_responses_dir = join(self.get_robot_dir(), 'xml_responses_dir')
+        if not exists(xml_responses_dir):
+            mkdir(xml_responses_dir)
 
-        date_dir = self.current_datetime.strftime('%Y_%m_%d')
-        date_dir = join(self.xml_responses_dir, date_dir)
-        if not exists(date_dir):
-            os.mkdir(date_dir)
-
-        file_name = 'reponse_{}'.format(self.current_datetime.strftime('%d%m%Y_%H%M%S.xml.gz'))
-        file_name = join(date_dir, file_name)
-        gz_file = gzip.open(file_name, 'wb')
-        gz_file.write(xml.encode('cp1251'))  #эта кодировка прописана в протоколе TempoReale
-        gz_file.close()
+        try:
+            zip_name = join(xml_responses_dir, self.current_datetime.strftime('%Y_%m_%d') + '.zip')
+            file_name = self.current_datetime.strftime('%d%m%Y_%H%M%S.xml')
+            with ZipFile(zip_name, 'a', compression=ZIP_DEFLATED, allowZip64=True) as zf:
+                zf.writestr(file_name, xml)
+        except Exception:
+            self.logger.error(self._get_tb_info())
 
     def make_url_opener(self, query, user, password):
-        '''метод нужен для настройки аутентификации'''
+        '''метод нужен для настройки аутентификации сервера TempoReale'''
 
         psw_mgr = request.HTTPPasswordMgrWithDefaultRealm()
         psw_mgr.add_password(None, query, user, password)
@@ -69,18 +61,17 @@ class ClockHouseRobot(BaseRobot):
         # Формат строки даты-времени, передаваемой в запрос, должен быть: YYYYMMDDHHmmSS.
         begin = begin.strftime('%Y%m%d%H%M%S')
         end = end.strftime('%Y%m%d%H%M00')
-        self.query = 'http://{}/query/ta?begin={}&end={}'.format(self.clock_house_ip, begin, end)
-        self.logger.info(self.query)
+        query = 'http://{}/query/ta?begin={}&end={}'.format(self.clock_house_ip, begin, end)
+        self.logger.info(query)
 
         try:
-            opener = self.make_url_opener(self.query, self.user, self.password)
-            response = opener.open(self.query)
+            opener = self.make_url_opener(query, self.user, self.password)
+            response = opener.open(query)
             xml = response.read().decode('cp1251')
             self.write_response_to_xml(xml)
             return xml
         except Exception:
-            tb_info = self._get_tb_info()
-            self.logger.error(tb_info)
+            self.logger.error(self._get_tb_info())
             return None
 
     def call_save_data(self, xml):
@@ -92,8 +83,7 @@ class ClockHouseRobot(BaseRobot):
                 result = cl.call('ЭлектроннаяПроходная.СохранитьДанные', Идентификатор=self.clock_house_ip, файл=xml, КонецИнтервала=interval_end)
                 self.logger.info('Метод СохранитьДанные() вернул {}'.format(result))
             except Exception:
-                tb_info = self._get_tb_info()
-                self.logger.error(tb_info)
+                self.logger.error(self._get_tb_info())
         else:
             self.logger.info('Метод СохранитьДанные() не отработал')
 
@@ -104,27 +94,23 @@ class ClockHouseRobot(BaseRobot):
                     rmtree(dir_)
                     self.logger.info('Удалена папка с ответами - {}'.format(dir_))
                 except Exception:
-                    tb_info = self._get_tb_info()
-                    self.logger.error(tb_info)
+                    self.logger.error(self._get_tb_info())
 
 
 def main():
-    chr_ = ClockHouseRobot(log_file='chr_log.txt',
-                           config_file='chr_config.ini',
-                           interval=600,
-                           robot_filename=__file__,
+    clhr = ClockHouseRobot('chr_log.txt', 'chr_config.ini', 600,
                            clock_house_ip='10.76.120.91',
                            user='admin',
                            password='admin',
                            service_address='dev-inside.tensor.ru')
     while True:
-        chr_.reread_config()
+        clhr.reread_config()
 
-        chr_.update_current_datetime()
-        xml = chr_.get_latest_info()
-        chr_.call_save_data(xml)
+        clhr.update_current_datetime()
+        xml = clhr.get_latest_info()
+        clhr.call_save_data(xml)
 
-        chr_.pause()
+        clhr.pause()
 
 if __name__ == '__main__':
     main()

@@ -91,10 +91,11 @@ class RobotNotificationExchanger(BaseRobot):
 
 
 def main():
-    rne = RobotNotificationExchanger(log_file='rne_log.txt',
-                                     config_file='rne_config.ini',
-                                     interval=5,
-                                     robot_filename=__file__)
+    rne = RobotNotificationExchanger('ner_log.txt', 'ner_config.ini', 5,
+                                     inside_address='dev-inside.tensor.ru',
+                                     user='Демо',
+                                     password='Демо123',
+                                     notification_service='dev-sms-app')
     while True:
         rne.reread_config()
 
