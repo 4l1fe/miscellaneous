@@ -19,7 +19,7 @@ class BaseRobot:
 
         sh = logging.StreamHandler()
         th = TimedRotatingFileHandler(filename=self.log_file, when='d', interval=1, backupCount=7)
-        logging_formatter = logging.Formatter(fmt='[%(levelname)s %(asctime)s] %(message)-80s', datefmt='%H:%M:%S')
+        logging_formatter = logging.Formatter(fmt='[{levelname} {asctime}] {message}', datefmt='%H:%M:%S', style='{')
         sh.setFormatter(logging_formatter)
         th.setFormatter(logging_formatter)
         self.logger = logging.getLogger()
@@ -31,7 +31,6 @@ class BaseRobot:
             cp = ConfigParser()
             cp.add_section(self.general_config_section)
             cp.set(self.general_config_section, 'interval', str(self.interval))
-            self.logger.info(type(self.interval))
             if config_params:
                 for k, v in config_params.items():
                     cp.set(self.general_config_section, k, v)
@@ -43,7 +42,7 @@ class BaseRobot:
             else:
                 has_params = False
 
-        self.logger.info('ROBOT STARTED')
+        self.logger.info('{} STARTED'.format(self.__class__.__name__))
         if not has_params:
             self.logger.warning('Неопределены параметры конфигурации робота')
 
