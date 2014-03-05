@@ -3,8 +3,7 @@ from urllib import request
 from zipfile import ZipFile, ZIP_DEFLATED  # ZIP_DEFLATED тут быстрее всего, но слабже сжимает
 from datetime import datetime, timedelta
 from os.path import join, exists, getctime
-from os import listdir, mkdir
-from shutil import rmtree
+from os import listdir, mkdir, remove
 from robots.baserobot import BaseRobot
 
 
@@ -14,13 +13,12 @@ class ClockHouseRobot(BaseRobot):
         self.current_datetime = datetime.now()
 
     def write_response_to_xml(self, xml):
-        xml_responses_dir = join(self.get_robot_dir(), 'xml_responses_dir')
-        if not exists(xml_responses_dir):
-            mkdir(xml_responses_dir)
+        if not exists(self.xml_responses_dir):
+            mkdir(self.xml_responses_dir)
 
         try:
-            zip_name = join(xml_responses_dir, self.current_datetime.strftime('%Y_%m_%d') + '.zip')
-            file_name = self.current_datetime.strftime('%d%m%Y_%H%M%S.xml')
+            zip_name = join('responses', self.current_datetime.strftime('%Y_%m_%d') + '.zip')
+            file_name = self.current_datetime.strftime('%H%M%S.xml')
             with ZipFile(zip_name, 'a', compression=ZIP_DEFLATED, allowZip64=True) as zf:
                 zf.writestr(file_name, xml)
         except Exception:
@@ -88,27 +86,32 @@ class ClockHouseRobot(BaseRobot):
             self.logger.info('Метод СохранитьДанные() не отработал')
 
     def del_old_xml_responses_dir(self):
-        for dir_ in listdir(self.xml_responses_dir):
-            if datetime.fromtimestamp(getctime(dir_)).month < datetime.now().month:
-                try:
-                    rmtree(dir_)
-                    self.logger.info('Удалена папка с ответами - {}'.format(dir_))
-                except Exception:
-                    self.logger.error(self._get_tb_info())
+        if exists(self.xml_responses_dir):
+            for dir_ in listdir(self.xml_responses_dir):
+                if datetime.fromtimestamp(getctime(dir_)).month < datetime.now().month:
+                    try:
+                        remove(dir_)
+                        self.logger.info('Удалена папка с ответами - {}'.format(dir_))
+                    except Exception:
+                        self.logger.error(self._get_tb_info())
 
 
 def main():
-    clhr = ClockHouseRobot('chr_log.txt', 'chr_config.ini', 600,
+    clhr = ClockHouseRobot(log_file='chr_log.txt',
+                           config_file='chr_config.ini',
+                           interval=10,
                            clock_house_ip='10.76.120.91',
                            user='admin',
                            password='admin',
-                           service_address='dev-inside.tensor.ru')
+                           service_address='dev-inside.tensor.ru',
+                           xml_responses_dir = 'xml_responses_dir')
     while True:
         clhr.reread_config()
 
         clhr.update_current_datetime()
         xml = clhr.get_latest_info()
         clhr.call_save_data(xml)
+        clhr.del_old_xml_responses_dir()
 
         clhr.pause()
 
