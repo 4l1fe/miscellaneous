@@ -1,8 +1,6 @@
 import rpc
 from copy import deepcopy
-from operator import contains
-from pprint import pprint as pp
-from robots.baserobot import BaseRobot
+from baserobot import BaseRobot
 
 
 class NotificationExchangerRobot(BaseRobot):
@@ -20,6 +18,7 @@ class NotificationExchangerRobot(BaseRobot):
 
     def call_add_notification(self, reminders_dict):
         self.logger.info('Ближайшие события: ' + str(reminders_dict))
+        results = []
         if reminders_dict:
             info_messages = []
             for values in reminders_dict["d"]:
@@ -38,10 +37,9 @@ class NotificationExchangerRobot(BaseRobot):
                 info_messages.append(info_mess)
             self.logger.info('Список из отсылаемых параметров ИнфСообщение: ' + str(info_messages))
         else:
-            return None
+            return results
 
         try:
-            results = []
             for info_mess in info_messages:
                 cl = rpc.Client(self.notification_service)
                 result = cl.call('ОповещенияПользователей.ДобавитьУведомление', _site='/notice', ИнфСообщение=info_mess)
@@ -50,10 +48,10 @@ class NotificationExchangerRobot(BaseRobot):
             return results
         except Exception:
             self.logger.error(self._get_tb_info())
-            return []
+            return results
 
     def call_delivery_result(self, results, reminders_dict):
-        if all(results):
+        if results and all(results):
             try:
                 cl = rpc.Client(self.inside_address, is_https=True)
                 cl.auth(self.user, self.password)
