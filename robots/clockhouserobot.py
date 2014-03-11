@@ -4,7 +4,7 @@ from zipfile import ZipFile, ZIP_DEFLATED  # ZIP_DEFLATED тут быстрее 
 from datetime import datetime, timedelta
 from os.path import join, exists, getctime
 from os import listdir, mkdir, remove
-from robots.baserobot import BaseRobot
+from baserobot import BaseRobot
 
 
 class ClockHouseRobot(BaseRobot):
