@@ -28,6 +28,7 @@ def parse_sbis_root():  # Танина необъяснимая логика.
         "<class 'Boost.Python.function'>": lambda: ap_item(methods_list, k)
     }
 
+    # хитрое Танино вычисление нужных объектов из всего словаря пакета sbis_root.
     for k, v in sbis_root_dict.items():
         string = str(type(v))
         if (string != "<class 'type'>" and switch.get(string)) \
@@ -39,6 +40,12 @@ def parse_sbis_root():  # Танина необъяснимая логика.
 
 
 def generate_required_files(sphinx_dir):
+    """В целом конечная документация строится по rst-файлам.
+    В этой функции динамически создаются rst-директивы вместе с блоками кода, которые подхватываются из
+    строк документации объектов модуля api_sphinx_examples, и ,соответственно, пишутся в rst-файлы.
+    По ним sphinx создаст конечную документацию в функции sphinx_build().
+    Тут так же присутствует правка конфигурационного файла глобальных настроек conf.py"""
+
     all_classes_str = ""
     req_classes = ['Record', 'RecordSet', 'IField', 'BLObject', 'IStatement', 'IDatabase', 'SqlQuery']
     sc_name = 'sections/classes'
@@ -51,11 +58,9 @@ def generate_required_files(sphinx_dir):
     for cl in classes_list:
         rst_file_name = join(sect_cls_dir, cl+'.rst')
         rst_file = open(rst_file_name, mode='w', encoding='utf-8')
-        equals = "======"
-        for _char in cl:  # Знаков = должно быть равное количество длине имени класса.
-            equals += "="
+        equals = "======" + "="*len(cl)  # Знаков = должно быть равное количество длине имени класса.
 
-        # Если текущий класс(cl) входит в req_classes, то к автогенерируемой документации класса и его методов
+        # Если текущий класс(cl) входит в req_classes, то к автогенерируемой документации класса и его методам
         # подставляем кусок кода(code_block), описанный в модуле api_sphinx_examples.
         has_classes = [equal(cl, r_cl) for r_cl in req_classes]
         if not any(has_classes):
@@ -96,35 +101,33 @@ def generate_required_files(sphinx_dir):
 
         all_classes_str += "\t" + "classes/" + cl + "\n"
 
-    sect_cls_rst = open(join(sphinx_dir, 'sections\classes.rst'), mode='w', encoding='utf-8')
     template = ".. СБиС Классы.\n\n"
     template += "Классы модуля sbis-python\n"
     template += "=========================\n\n"
     template += ".. toctree::\n"
     template += "\t:maxdepth: 2\n\n"
     template += all_classes_str + "\n"
-    sect_cls_rst.write(template)
-    sect_cls_rst.close()
+    classes_rst = open(join(sphinx_dir, sc_name+'.rst'), mode='w', encoding='utf-8')
+    classes_rst.write(template)
+    classes_rst.close()
 
-    sect_meth_rst = open(join(sphinx_dir, 'sections\methods.rst'), mode='w', encoding='utf-8')
     template = ".. СБиС Методы.\n\n"
     template += "Методы модуля sbis-python\n"
     template += "============\n\n"
     template += ".. toctree::\n"
     template += "\t:maxdepth: 2\n\n"
-    template += "\tmethods/Rec\n\n"
-    sect_meth_rst.write(template)
-    sect_meth_rst.close()
+    template += "\tmethods/AllMethods\n\n"
+    methods_rst = open(join(sphinx_dir, sm_name+'.rst'), mode='w', encoding='utf-8')
+    methods_rst.write(template)
+    methods_rst.close()
 
-    mth_mod = open(join(sect_meth_dir, 'Rec.rst'), mode='w', encoding='utf-8')  #TODO: переименовать
-    mth_mod.write(
+    all_methods_rst = open(join(sect_meth_dir, 'AllMethods.rst'), mode='w', encoding='utf-8')  #TODO: переименовать
+    all_methods_rst.write(
         "Методы модуля sbis-python\n"
         "=========================\n"
         ".. automodule:: sbis_root\n"
-        "\t:members:\n"
-        "\t:private-members:\n"
-        "\t:special-members:")
-    mth_mod.close()
+        "\t:members: " + ', '.join(methods_list))
+    all_methods_rst.close()
 
     # Редактирование index.rst. Добавляем ссылки на sc_name, sm_name
     index_rst = open(join(sphinx_dir, 'index.rst'))
@@ -140,17 +143,18 @@ def generate_required_files(sphinx_dir):
     index_rst.write(template)
     index_rst.close()
 
-    #Настраиваем conf.py, чтобы подключить автоматический вывод строк документирования
+    # Настраиваем conf.py, чтобы подключить автоматический вывод строк документирования объектов.
+    # Настройки добавляются в конец файла conf.py, тем самым переписывая уже существующие(так проще и понятнее).
     conf = open(join(sphinx_dir, 'conf.py'), 'a')
-    service_dir = os.getcwd()
-    template = 'sys.path.insert(0, r"{}")\n'.format(service_dir)
+    current_dir = os.getcwd()
+    template = 'sys.path.insert(0, r"{}")\n'.format(current_dir)
     template += 'extensions = ["sphinx.ext.autodoc"]'
     conf.write(template)
 
 
-def sphinx_rebuild(sphinx_dir, prepared_dir):
+def sphinx_build(sphinx_dir):
+    prepared_dir = join(sphinx_dir, 'prepared_dir')
     os.system('sphinx-build -b html -w sphinx_errors.txt -E -a ' + sphinx_dir  + ' ' + prepared_dir)
-    #shutil.copy(os.path.abspath('..\..\..\doc-source-genc\index.php'), os.path.abspath('..\..\..\docs'))
 
 
 def copy_to_dev_wi(sphinx_dir):
@@ -226,22 +230,18 @@ def copy_to_dev_wi(sphinx_dir):
 
 
 def main():
+    """Сценарий был частично переписан,
+    после довольно специфической логики изначального автора"""
+
     parser = argparse.ArgumentParser()
     parser.add_argument('-sd', '--sphinx_dir', action='store', type=str, dest='sphinx_dir', required=True)
     result = parser.parse_args()
 
-    #Получаем список классов Python API для генерации ресурсов сайта.
     parse_sbis_root()
 
-    #Перегенерируем rst файлы с обновленными классами
     generate_required_files(result.sphinx_dir)
 
-    #Делаем ребилд документации с обновленными rst файлами.
-    prepared_dir = join(result.sphinx_dir, 'prepared_dir')
-    sphinx_rebuild(result.sphinx_dir, prepared_dir)
-
-    #Копируем по FTP на dev-wi.sbis.ru
-    #copy_to_dev_wi(result.sphinx_dir)
+    sphinx_build(result.sphinx_dir)
 
 
 if __name__ == '__main__':

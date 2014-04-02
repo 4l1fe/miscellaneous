@@ -10,7 +10,7 @@ from time import sleep
 class BaseRobot:
 
     def __init__(self, log_file='base_robot_log.txt', config_file='base_robot_config.ini',
-                 interval=300, **config_params):
+                 interval=300, log_to_stdout=True, **config_params):
         self.interval = interval
         self.robot_dir = dirname(sys.modules[self.__class__.__module__].__file__)
         self.config_file = join(self.robot_dir, config_file)
@@ -23,7 +23,8 @@ class BaseRobot:
         sh.setFormatter(logging_formatter)
         th.setFormatter(logging_formatter)
         self.logger = logging.getLogger()
-        self.logger.addHandler(sh)
+        if log_to_stdout:
+            self.logger.addHandler(sh)
         self.logger.addHandler(th)
         self.logger.setLevel(logging.INFO)
 
@@ -54,6 +55,11 @@ class BaseRobot:
                     setattr(self, k, v)
         except Exception:
             self.logger.error(self._get_tb_info())
+
+    def reset_params(self, params):
+        for k, v in params.items():
+            setattr(self, k, v)
+            self.logger.info('Переустановлен параметр {} = {}'.format(k, v))
 
     def get_robot_dir(self):
         return self.robot_dir
