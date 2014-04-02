@@ -264,5 +264,5 @@ if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(RedisClientTest)
     #suite = unittest.TestLoader().loadTestsFromTestCase(RCTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
-    # rc = sbis_root.RedisClient( "host='" + 'localhost' + "', port=" + '6379' + ", dbindex=" + '0', False )
+    # rc = sbis_root.RedisClient( "host=localhost, port=6379, dbindex=0", False )
     # print(str(rc.Ping())+'*******************************')

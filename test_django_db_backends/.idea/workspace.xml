@@ -12,8 +12,8 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/test_django_db_backends$perfomance_test.coverage" NAME="perfomance_test Coverage Results" MODIFIED="1392389590258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app_main" />
     <SUITE FILE_PATH="coverage/test_django_db_backends$decorator.coverage" NAME="decorator Coverage Results" MODIFIED="1390398957520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app_main" />
-    <SUITE FILE_PATH="coverage/test_django_db_backends$perfomance_test.coverage" NAME="perfomance_test Coverage Results" MODIFIED="1391158803654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app_main" />
     <SUITE FILE_PATH="coverage/test_django_db_backends$Test__app_main.coverage" NAME="Test: app_main Coverage Results" MODIFIED="1390294010600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/test_django_db_backends$robot.coverage" NAME="robot Coverage Results" MODIFIED="1391063602613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
   </component>
@@ -23,62 +23,25 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="DatabaseView">
-    <flatten value="false" />
-    <groupTables value="false" />
-    <sortChildren value="false" />
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="test_django_db_backends" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="perfomance_test.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2652">
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#3020#4047#0" expanded="false" />
-                <element signature="e#4089#4982#0" expanded="false" />
-                <element signature="e#5023#5886#0" expanded="false" />
-                <element signature="e#5928#6801#0" expanded="false" />
-                <element signature="e#6838#7677#0" expanded="false" />
-                <element signature="e#7725#8251#0" expanded="false" />
-                <element signature="e#8301#8837#0" expanded="false" />
-                <element signature="e#8876#9361#0" expanded="false" />
-                <element signature="e#9399#9884#0" expanded="false" />
-                <element signature="e#9921#10376#0" expanded="false" />
-                <element signature="e#10416#11043#0" expanded="false" />
-                <element signature="e#11084#11631#0" expanded="false" />
-                <element signature="e#11670#12120#0" expanded="false" />
-                <element signature="e#12158#12603#0" expanded="false" />
-                <element signature="e#12645#13117#0" expanded="false" />
-                <element signature="e#13157#13619#0" expanded="false" />
-                <element signature="e#13662#14353#0" expanded="false" />
-                <element signature="e#14393#14883#0" expanded="false" />
-                <element signature="e#14926#15677#0" expanded="false" />
-                <element signature="e#15700#16202#0" expanded="false" />
-                <element signature="e#16221#16639#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_main/models.py">
+        <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="986" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+            <state line="3" column="29" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="986">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="timezone.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://C:/Python33/Lib/site-packages/django/utils/timezone.py">
+      <file leaf-file-name="mysql_sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_main/mysql_sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="245" column="0" selection-start="6965" selection-end="6965" vertical-scroll-proportion="0.0" vertical-offset="4165" max-vertical-offset="5440">
+            <state line="11" column="42" selection-start="1745157" selection-end="1745157" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="2227">
               <folding />
             </state>
           </provider>
@@ -87,35 +50,21 @@
       <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="14" selection-start="1083" selection-end="1083" vertical-scroll-proportion="0.0" vertical-offset="319" max-vertical-offset="1836">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1870">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_test/models.py">
+      <file leaf-file-name="perfomance_test.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clock_house.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://D:/WORK/sbis3-inside-tensor_trunk/buh/www/service/Модули/Определение местоположения сотрудников/clock_house.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="0" selection-start="3513" selection-end="3513" vertical-scroll-proportion="0.0" vertical-offset="1853" max-vertical-offset="4148">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="robot.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../robot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="12" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="3196">
-              <folding />
+            <state line="356" column="26" selection-start="14363" selection-end="14363" vertical-scroll-proportion="0.2150901" vertical-offset="5793" max-vertical-offset="6715">
+              <folding>
+                <marker date="1392619483785" expanded="true" signature="2198:2272" placeholder="ALTER TABLE ..." />
+                <marker date="1392619483785" expanded="true" signature="4765:4923" placeholder="insert into ..." />
+                <marker date="1392619483785" expanded="true" signature="4825:4923" placeholder="select p.id,..app_main_publisher..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -140,12 +89,12 @@
         <option value="dbtable:/b55fdf38/220766e8-3971-4612-9eb9-ad90e9e7f19b/django_db_backends_tests..app_main_publisher" />
         <option value="dbtable:/b55fdf38/e1143abf-501f-4691-8534-e19e588df67a/django_db_backends_tests.public.app_main_publisher" />
         <option value="dbtable:/b55fdf38/220766e8-3971-4612-9eb9-ad90e9e7f19b/django_db_backends_tests..app_main_publisher_book" />
-        <option value="$PROJECT_DIR$/test_django_db_backends/settings.py" />
         <option value="$PROJECT_DIR$/app_test/models.py" />
-        <option value="$PROJECT_DIR$/app_main/perfomance_test.py" />
         <option value="dbtable:/b55fdf38/220766e8-3971-4612-9eb9-ad90e9e7f19b/information_schema..CHARACTER_SETS" />
         <option value="dbtable:/b55fdf38/220766e8-3971-4612-9eb9-ad90e9e7f19b/information_schema..EVENTS" />
         <option value="dbtable:/b55fdf38/220766e8-3971-4612-9eb9-ad90e9e7f19b/information_schema..ENGINES" />
+        <option value="$PROJECT_DIR$/test_django_db_backends/settings.py" />
+        <option value="$PROJECT_DIR$/app_main/perfomance_test.py" />
       </list>
     </option>
   </component>
@@ -181,6 +130,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -213,13 +163,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app_test" />
+              <option name="myItemId" value="test_django_db_backends" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test_django_db_backends" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test_django_db_backends" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app_main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -237,7 +200,7 @@
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
-      <PyConsoleSettings />
+      <console-settings />
     </option>
   </component>
   <component name="RunManager" selected="Python.perfomance_test">
@@ -551,13 +514,13 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34578443" sideWeight="0.676307" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3455804" sideWeight="0.676307" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17075774" sideWeight="0.676307" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18104367" sideWeight="0.676307" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30923247" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32369298" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4433657" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -567,6 +530,11 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -582,6 +550,209 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="29" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/mysql_sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="42" selection-start="1745157" selection-end="1745157" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="2227">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1870">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="356" column="26" selection-start="14363" selection-end="14363" vertical-scroll-proportion="0.0" vertical-offset="5984" max-vertical-offset="6715">
+          <folding>
+            <marker date="1392619483785" expanded="true" signature="2198:2272" placeholder="ALTER TABLE ..." />
+            <marker date="1392619483785" expanded="true" signature="4765:4923" placeholder="insert into ..." />
+            <marker date="1392619483785" expanded="true" signature="4825:4923" placeholder="select p.id,..app_main_publisher..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="29" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/mysql_sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="42" selection-start="1745157" selection-end="1745157" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="2227">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1870">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="356" column="26" selection-start="14061" selection-end="14061" vertical-scroll-proportion="0.0" vertical-offset="6052" max-vertical-offset="6460">
+          <folding>
+            <marker date="1392619483785" expanded="true" signature="2198:2272" placeholder="ALTER TABLE ..." />
+            <marker date="1392619483785" expanded="true" signature="4765:4923" placeholder="insert into ..." />
+            <marker date="1392619483785" expanded="true" signature="4825:4923" placeholder="select p.id,..app_main_publisher..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="32" selection-start="1688" selection-end="1688" vertical-scroll-proportion="0.0" vertical-offset="64" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="22" selection-start="2196" selection-end="2196" vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="1870">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="22" selection-end="22" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="323" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="636" column="0" selection-start="24139" selection-end="24139" vertical-scroll-proportion="0.0" vertical-offset="6511" max-vertical-offset="6511">
+          <folding>
+            <marker date="1392619483785" expanded="true" signature="2198:2272" placeholder="ALTER TABLE ..." />
+            <marker date="1392619483785" expanded="true" signature="4765:4923" placeholder="insert into ..." />
+            <marker date="1392619483785" expanded="true" signature="4825:4923" placeholder="select p.id,..app_main_publisher..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="32" selection-start="1688" selection-end="1688" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="22" selection-start="2196" selection-end="2196" vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="1870">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="22" selection-end="22" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="323" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="636" column="11" selection-start="24203" selection-end="24203" vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="459">
+          <folding>
+            <marker date="1392619483785" expanded="true" signature="2198:2272" placeholder="ALTER TABLE ..." />
+            <marker date="1392619483785" expanded="true" signature="4765:4923" placeholder="insert into ..." />
+            <marker date="1392619483785" expanded="true" signature="4825:4923" placeholder="select p.id,..app_main_publisher..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="32" selection-start="1688" selection-end="1688" vertical-scroll-proportion="0.0" vertical-offset="64" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="22" selection-start="2196" selection-end="2196" vertical-scroll-proportion="0.0" vertical-offset="1309" max-vertical-offset="1870">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="10948">
+          <folding>
+            <marker date="1392619483785" expanded="true" signature="2198:2272" placeholder="ALTER TABLE ..." />
+            <marker date="1392619483785" expanded="true" signature="4765:4923" placeholder="insert into ..." />
+            <marker date="1392619483785" expanded="true" signature="4825:4923" placeholder="select p.id,..app_main_publisher..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="32" selection-start="1688" selection-end="1688" vertical-scroll-proportion="0.0" vertical-offset="64" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="32" selection-start="1688" selection-end="1688" vertical-scroll-proportion="0.0" vertical-offset="233" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10812" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="10812" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="986" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595" />
+      </provider>
+    </entry>
+    <entry file="file://C:/Python33/Lib/site-packages/django/utils/timezone.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="245" column="0" selection-start="6965" selection-end="6965" vertical-scroll-proportion="0.0" vertical-offset="4165" max-vertical-offset="5440" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="14" selection-start="1083" selection-end="1083" vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="1853" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_test/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357" />
+      </provider>
+    </entry>
+    <entry file="file://D:/WORK/sbis3-inside-tensor_trunk/buh/www/service/Модули/Определение местоположения сотрудников/clock_house.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="0" selection-start="3513" selection-end="3513" vertical-scroll-proportion="0.0" vertical-offset="1853" max-vertical-offset="4148" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../robot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="12" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="3196" />
+      </provider>
+    </entry>
     <entry file="dbDummy://dbtable:/b55fdf38/220766e8-3971-4612-9eb9-ad90e9e7f19b/django_db_backends_tests..app_main_author">
       <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
         <state />
@@ -596,13 +767,6 @@
       </provider>
       <provider editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_main/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="986" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/b55fdf38/e1143abf-501f-4691-8534-e19e588df67a/django_db_backends_tests.public.app_main_publisher_book">
@@ -631,17 +795,7 @@
     </entry>
     <entry file="file://C:/Python33/Lib/site-packages/django/utils/timezone.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="245" column="0" selection-start="6965" selection-end="6965" vertical-scroll-proportion="0.0" vertical-offset="917" max-vertical-offset="1632">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_main/postgres_sql">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60014" column="0" selection-start="7089717" selection-end="7089717" vertical-scroll-proportion="0.8740741" vertical-offset="1019530" max-vertical-offset="1020340" />
+        <state line="245" column="0" selection-start="6965" selection-end="6965" vertical-scroll-proportion="0.0" vertical-offset="917" max-vertical-offset="1632" />
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/b55fdf38/220766e8-3971-4612-9eb9-ad90e9e7f19b/django_db_backends_tests..app_main_publisher_book">
@@ -652,18 +806,9 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="14" selection-start="1083" selection-end="1083" vertical-scroll-proportion="0.0" vertical-offset="319" max-vertical-offset="1836">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_test/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="582">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="582" />
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/b55fdf38/220766e8-3971-4612-9eb9-ad90e9e7f19b/information_schema..CHARACTER_SETS">
@@ -692,37 +837,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../robot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="12" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="3196">
+        <state line="19" column="12" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="3196" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/decorator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/cut_separate_replace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1887" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="39" selection-start="457" selection-end="457" vertical-scroll-proportion="0.34" vertical-offset="0" max-vertical-offset="600" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="22" selection-end="22" vertical-scroll-proportion="0.018867925" vertical-offset="0" max-vertical-offset="901" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_convertation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="29" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_main/mysql_sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="42" selection-start="1745157" selection-end="1745157" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2227">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_django_db_backends/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1870">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_main/perfomance_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2652">
+        <state line="356" column="26" selection-start="14363" selection-end="14363" vertical-scroll-proportion="0.2150901" vertical-offset="5793" max-vertical-offset="6715">
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#3020#4047#0" expanded="false" />
-            <element signature="e#4089#4982#0" expanded="false" />
-            <element signature="e#5023#5886#0" expanded="false" />
-            <element signature="e#5928#6801#0" expanded="false" />
-            <element signature="e#6838#7677#0" expanded="false" />
-            <element signature="e#7725#8251#0" expanded="false" />
-            <element signature="e#8301#8837#0" expanded="false" />
-            <element signature="e#8876#9361#0" expanded="false" />
-            <element signature="e#9399#9884#0" expanded="false" />
-            <element signature="e#9921#10376#0" expanded="false" />
-            <element signature="e#10416#11043#0" expanded="false" />
-            <element signature="e#11084#11631#0" expanded="false" />
-            <element signature="e#11670#12120#0" expanded="false" />
-            <element signature="e#12158#12603#0" expanded="false" />
-            <element signature="e#12645#13117#0" expanded="false" />
-            <element signature="e#13157#13619#0" expanded="false" />
-            <element signature="e#13662#14353#0" expanded="false" />
-            <element signature="e#14393#14883#0" expanded="false" />
-            <element signature="e#14926#15677#0" expanded="false" />
-            <element signature="e#15700#16202#0" expanded="false" />
-            <element signature="e#16221#16639#0" expanded="false" />
+            <marker date="1392619483785" expanded="true" signature="2198:2272" placeholder="ALTER TABLE ..." />
+            <marker date="1392619483785" expanded="true" signature="4765:4923" placeholder="insert into ..." />
+            <marker date="1392619483785" expanded="true" signature="4825:4923" placeholder="select p.id,..app_main_publisher..." />
           </folding>
         </state>
       </provider>

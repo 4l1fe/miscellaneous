@@ -64,10 +64,14 @@ class NotificationExchangerRobot(BaseRobot):
                 self.logger.error(self._get_tb_info())
                 return None
 
+
+
+
 def main():
     rne = NotificationExchangerRobot(log_file='ner_log.txt',
                                      config_file='ner_config.ini',
-                                     interval=30,
+                                     interval=5,
+                                     log_to_stdout=False,
                                      inside_address='dev-inside.tensor.ru',
                                      user='Демо',
                                      password='Демо123',
